@@ -7,8 +7,8 @@ import (
 	//"strconv"
 )
 
-// 62 valid characters a-z0-9A-Z
-const base62Chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+// 62 valid characters A-Za-z0-9
+const base62Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 // 64 valid characters A-Za-z0-9-_
 const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
