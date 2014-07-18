@@ -3,8 +3,6 @@ package lpenc
 import (
 	"bytes"
 	"errors"
-	"fmt"
-	//"strconv"
 )
 
 // 62 valid characters A-Za-z0-9
@@ -35,6 +33,8 @@ func NewEncoding(chars string) *Encoding {
 	return e
 }
 
+// returns the String representation of the uint64 passed in.
+// empty string ("") is returned if the value is 0
 func (enc *Encoding) Encode(n uint64) string {
 	var buffer bytes.Buffer
 	for n > 0 {
@@ -45,6 +45,9 @@ func (enc *Encoding) Encode(n uint64) string {
 	return buffer.String()
 }
 
+// tries to decode the string passed in into a uint64.
+// if the string contains a character not defined in the alphabet of the
+// encoding in use then an error is returned, uint64 value is undefined what will have
 func (enc *Encoding) Decode(s string) (uint64, error) {
 	var n uint64 = 0
 	var b byte
