@@ -59,8 +59,8 @@ func (enc *Encoding) Decode(s string) (uint64, error) {
 	return n, nil
 }
 
-// 62 valid characters a-z0-9A-Z
+// 62 valid characters A-Za-z0-9
 var Base62Encoding = NewEncoding(base62Chars)
 
-// 64 valid characters a-z0-9A-Z
+// 64 valid characters A-Za-z0-9-_
 var Base64Encoding = NewEncoding(base64Chars)
