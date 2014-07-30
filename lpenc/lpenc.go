@@ -33,6 +33,13 @@ func NewEncoding(chars string) *Encoding {
 	return e
 }
 
+func ReverseString(s string) string {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
+	return s
+}
+
 // returns the String representation of the uint64 passed in.
 // empty string ("") is returned if the value is 0
 func (enc *Encoding) Encode(n uint64) string {
@@ -42,7 +49,7 @@ func (enc *Encoding) Encode(n uint64) string {
 		buffer.WriteByte(enc.encodeChars[mod])
 		n /= uint64(enc.encodeLen)
 	}
-	return buffer.String()
+	return ReverseString(buffer.String())
 }
 
 // tries to decode the string passed in into a uint64.
@@ -51,7 +58,7 @@ func (enc *Encoding) Encode(n uint64) string {
 func (enc *Encoding) Decode(s string) (uint64, error) {
 	var n uint64 = 0
 	var b byte
-	for _, c := range []byte(s) {
+	for _, c := range []byte(ReverseString(s) {
 		b = enc.decodeMap[c]
 		if b == 0xFF {
 			return 0, errors.New("Contains invalid char")
