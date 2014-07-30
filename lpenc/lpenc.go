@@ -3,6 +3,7 @@ package lpenc
 import (
 	"bytes"
 	"errors"
+	"unicode/utf8"
 )
 
 // 62 valid characters A-Za-z0-9
@@ -34,10 +35,13 @@ func NewEncoding(chars string) *Encoding {
 }
 
 func ReverseString(s string) string {
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
-		s[i], s[j] = s[j], s[i]
+	cs := make([]rune, utf8.RuneCountInString(s))
+	i := len(cs)
+	for _, c := range s {
+		i--
+		cs[i] = c
 	}
-	return s
+	return string(cs)
 }
 
 // returns the String representation of the uint64 passed in.
@@ -58,7 +62,7 @@ func (enc *Encoding) Encode(n uint64) string {
 func (enc *Encoding) Decode(s string) (uint64, error) {
 	var n uint64 = 0
 	var b byte
-	for _, c := range []byte(ReverseString(s) {
+	for _, c := range []byte(ReverseString(s)) {
 		b = enc.decodeMap[c]
 		if b == 0xFF {
 			return 0, errors.New("Contains invalid char")
