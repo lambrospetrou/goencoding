@@ -44,6 +44,27 @@ func ReverseString(s string) string {
 	return string(cs)
 }
 
+// as defined in https://groups.google.com/d/msg/golang-nuts/oPuBaYJ17t4/PCmhdAyrNVkJ
+// by Russ Cox
+func ReverseString2(s string) string {
+	// Get Unicode code points.
+	n := 0
+	rune := make([]int, len(input))
+	for _, r := range input {
+		rune[n] = r
+		n++
+	}
+	rune = rune[0:n]
+
+	// Reverse
+	for i := 0; i < n/2; i++ {
+		rune[i], rune[n-1-i] = rune[n-1-i], rune[i]
+	}
+
+	// Convert back to UTF-8.
+	output := string(rune)
+}
+
 // returns the String representation of the uint64 passed in.
 // empty string ("") is returned if the value is 0
 func (enc *Encoding) Encode(n uint64) string {
