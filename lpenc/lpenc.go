@@ -62,7 +62,7 @@ func (enc *Encoding) Encode(n uint64) string {
 func (enc *Encoding) Decode(s string) (uint64, error) {
 	var n uint64 = 0
 	var b byte
-	for _, c := range []byte(ReverseString(s)) {
+	for _, c := range []byte(s) {
 		b = enc.decodeMap[c]
 		if b == 0xFF {
 			return 0, errors.New("Contains invalid char")
