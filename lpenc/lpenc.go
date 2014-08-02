@@ -48,10 +48,14 @@ func ReverseString(s string) string {
 // empty string ("") is returned if the value is 0
 func (enc *Encoding) Encode(n uint64) string {
 	var buffer bytes.Buffer
-	for n > 0 {
-		mod := n % uint64(enc.encodeLen)
-		buffer.WriteByte(enc.encodeChars[mod])
-		n /= uint64(enc.encodeLen)
+	if n == 0 {
+		buffer.WriteByte(enc.encodeChars[0])
+	} else {
+		for n > 0 {
+			mod := n % uint64(enc.encodeLen)
+			buffer.WriteByte(enc.encodeChars[mod])
+			n /= uint64(enc.encodeLen)
+		}
 	}
 	return ReverseString(buffer.String())
 }
