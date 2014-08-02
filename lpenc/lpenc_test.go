@@ -1,21 +1,20 @@
 package lpenc
 
 import (
-	"github.com/lambrospetrou/goencoding/lpenc"
 	"testing"
 )
 
-const base62Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+const _base62Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 func TestNewEncoding(t *testing.T) {
-	var enc *lpenc.Encoding = lpenc.NewEncoding(base62Chars)
+	var enc *Encoding = NewEncoding(_base62Chars)
 	if enc == nil {
 		t.Errorf("nil Encoding object returned on constructor")
 	}
 }
 
 func TestEncode(t *testing.T) {
-	var enc *lpenc.Encoding = lpenc.NewEncoding(base62Chars)
+	var enc *Encoding = NewEncoding(_base62Chars)
 	encText := enc.Encode(0)
 	if encText != "A" {
 		t.Error("zero should be encoded as empty string")
@@ -35,7 +34,7 @@ func TestEncode(t *testing.T) {
 }
 
 func TestDecode(t *testing.T) {
-	var enc *lpenc.Encoding = lpenc.NewEncoding(base62Chars)
+	var enc *Encoding = NewEncoding(_base62Chars)
 	encText, err := enc.Decode("A")
 	if encText != 0 || err != nil {
 		t.Error("\"A\" should be decoded to 0")
@@ -56,12 +55,12 @@ func TestDecode(t *testing.T) {
 
 func TestReverseString(t *testing.T) {
 	var s string = "hello, world"
-	rs := lpenc.ReverseString(s)
+	rs := ReverseString(s)
 	if rs != "dlrow ,olleh" {
 		t.Error(s, " reversed wrongly: ", rs)
 	}
 	s = ""
-	rs = lpenc.ReverseString(s)
+	rs = ReverseString(s)
 	if rs != "" {
 		t.Error(s, " reversed wrongly: ", rs)
 	}
